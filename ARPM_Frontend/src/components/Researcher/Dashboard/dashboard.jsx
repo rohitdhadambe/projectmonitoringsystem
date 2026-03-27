@@ -121,9 +121,9 @@ function PMDashboardContent() {
 
   // ── Fetch dashboard data ───────────────────────────────────────────
   useEffect(() => {
-    const pmId = JSON.parse(localStorage.getItem("user"))?.user_id; // adjust to however you store the logged-in user
+   const user = JSON.parse(localStorage.getItem("user"));
 
-    fetch(`http://localhost:8000/dashboard/${pmId}`)   // ← change base URL in production
+fetch(`http://localhost:8000/dashboard/${user.user_id}?role=${user.role}`)
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch dashboard data");
         return res.json();
