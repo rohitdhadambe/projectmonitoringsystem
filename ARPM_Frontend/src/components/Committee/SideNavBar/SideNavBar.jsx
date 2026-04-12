@@ -56,6 +56,14 @@ export default function SideNavBarInvestigator({ isSidebarOpen, setIsSidebarOpen
                                 Communication
                             </Link>
                         </li>
+                        <li>
+                            <Link
+                                to="/payment"
+                                className={linkStyle("/payment")}
+                            >
+                                Payment
+                            </Link>
+                        </li>
 
                         {/*   <li>
                             <Link

@@ -25,7 +25,7 @@ import DashboardPM from "./components/PM/Dashboard/dashboard"
 import Dashboardcommittee from "./components/Committee/Dashboard/dashboard"
 import Dashboardresearcher from "./components/Researcher/Dashboard/dashboard"
 import Dashboardreviewer from "./components/Reviewer/Dashboard/dashboard" 
-import Payment from "./components/Payment"
+import Payment from "./components/Payment/Payment"
 
 
 
