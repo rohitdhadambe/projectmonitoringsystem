@@ -25,6 +25,7 @@ import DashboardPM from "./components/PM/Dashboard/dashboard"
 import Dashboardcommittee from "./components/Committee/Dashboard/dashboard"
 import Dashboardresearcher from "./components/Researcher/Dashboard/dashboard"
 import Dashboardreviewer from "./components/Reviewer/Dashboard/dashboard" 
+import Payment from "./components/Payment"
 
 
 
@@ -35,7 +36,7 @@ export default function App() {
     <Routes>
 
 
-
+      <Route path="/payment" element={<Payment />} />
       <Route path="/" element={<Landing />} />
       <Route path="/login" element={<Login />} />
 
