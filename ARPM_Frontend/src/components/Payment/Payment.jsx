@@ -70,6 +70,9 @@ function Payment() {
       handler: function (response) {
         alert("✅ Budget Sent Successfully");
         console.log("Payment:", response);
+        // Clear the form after successful payment
+        setSelectedProject("");
+        setAmount("");
       }
     };
 
