@@ -31,6 +31,7 @@ class ProjectResponse(BaseModel):
     status: str
     created_at: datetime
     updated_at: Optional[datetime] = None  # ✅ must be Optional
+    total_budget: Optional[int] = None
 
     class Config:
         from_attributes = True

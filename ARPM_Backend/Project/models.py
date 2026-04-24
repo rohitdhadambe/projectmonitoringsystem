@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, JSON
 from sqlalchemy.sql import func
+from sqlalchemy.orm import relationship
 from database import Base
 
 
@@ -36,3 +37,10 @@ class Project(Base):
         server_default=func.now(),
         onupdate=func.now()
     )
+
+    # Relationships
+    budget_proposal = relationship("BudgetProposal", back_populates="project", uselist=False)
+
+    @property
+    def total_budget(self):
+        return self.budget_proposal.total_budget if self.budget_proposal else None

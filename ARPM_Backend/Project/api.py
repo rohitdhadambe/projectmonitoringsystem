@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 from database import get_db
 from Project.models import Project
 from Project.schema import ProjectCreate, ProjectResponse
@@ -40,7 +41,7 @@ async def get_projects_by_pm(
     db: AsyncSession = Depends(get_db),
 ):
     result = await db.execute(
-        select(Project).where(Project.project_manager_id == pm_id)
+        select(Project).where(Project.project_manager_id == pm_id).options(selectinload(Project.budget_proposal))
     )
     return result.scalars().all()
 
@@ -50,7 +51,7 @@ async def get_projects_by_pm(
 async def get_all_projects(
     db: AsyncSession = Depends(get_db),
 ):
-    result = await db.execute(select(Project))
+    result = await db.execute(select(Project).options(selectinload(Project.budget_proposal)))
     return result.scalars().all()
 
 
@@ -88,7 +89,7 @@ async def get_projects_by_researcher(
     project_result = await db.execute(
         select(Project).where(
             Project.proposal_id.in_(proposal_ids)
-        )
+        ).options(selectinload(Project.budget_proposal))
     )
     return project_result.scalars().all()
 
@@ -128,7 +129,8 @@ async def get_project(
     project_id: int,
     db: AsyncSession = Depends(get_db),
 ):
-    project = await db.get(Project, project_id)
+    result = await db.execute(select(Project).where(Project.id == project_id).options(selectinload(Project.budget_proposal)))
+    project = result.scalar_one_or_none()
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
     return project

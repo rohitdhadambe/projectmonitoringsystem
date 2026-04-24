@@ -41,7 +41,7 @@ class BudgetProposal(Base):
     submitted_at = Column(DateTime(timezone=True))
  
     # ── Relationships ──────────────────────────────────────────────────────────
-    project  = relationship("Project")
+    project  = relationship("Project", back_populates="budget_proposal")
     creator  = relationship("User", foreign_keys=[created_by])
  
     # ✅ THIS WAS MISSING — BudgetDocument.back_populates="budget" points here

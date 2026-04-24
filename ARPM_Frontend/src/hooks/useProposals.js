@@ -12,7 +12,7 @@ export default function useProposals() {
 
             try {
 
-                const res = await fetch("http://127.0.0.1:8000/proposals/");
+                const res = await fetch("http://127.0.0.1:8000/projects/all");
 
                 if (!res.ok) {
                     throw new Error("Failed to fetch proposals");

@@ -13,9 +13,23 @@ function Payment() {
     fetchProjects();
   }, []);
 
+  // 🔥 Auto-fill amount when project is selected
+  useEffect(() => {
+    if (selectedProject) {
+      const project = projects.find(p => p.id.toString() === selectedProject);
+      if (project && project.total_budget) {
+        setAmount(project.total_budget.toString());
+      } else {
+        setAmount("");
+      }
+    } else {
+      setAmount("");
+    }
+  }, [selectedProject, projects]);
+
   const fetchProjects = async () => {
     try {
-      const res = await fetch("http://localhost:8000/proposals/");
+      const res = await fetch("http://localhost:8000/projects/all");
       const data = await res.json();
       setProjects(data);
     } catch (err) {
@@ -30,7 +44,7 @@ function Payment() {
     }
 
     if (!amount || !selectedProject) {
-      alert("Please select project and enter amount");
+      alert("Please select a project with an approved budget");
       return;
     }
 
@@ -113,7 +127,7 @@ function Payment() {
 
                   {projects.map((project) => (
                     <option key={project.id} value={project.id}>
-                      {project.title}
+                      {project.title} 
                     </option>
                   ))}
                 </select>
@@ -122,15 +136,15 @@ function Payment() {
               {/* Amount */}
               <div className="mb-6">
                 <label className="block mb-2 font-medium text-gray-700">
-                  Enter Budget Amount (₹)
+                  Approved Budget Amount (₹) - Auto-filled from selected project
                 </label>
 
                 <input
                   type="number"
-                  placeholder="e.g. 50000"
+                  placeholder="Select a project to auto-fill budget"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  className="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+                  readOnly
+                  className="w-full border border-gray-300 p-3 rounded-lg bg-gray-50 text-gray-700"
                 />
               </div>
 
