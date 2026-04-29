@@ -8,19 +8,15 @@ class ProposalStats(BaseModel):
     rejected: int
     pending: int
 
-
 class BudgetStats(BaseModel):
     sanctioned: float
     released: float
-
 
 class ProjectStats(BaseModel):
     total: int
     active: int
     completed: int
     on_hold: int
-
-
 class RecentMessage(BaseModel):
     id: int
     subject: str
@@ -31,7 +27,6 @@ class RecentMessage(BaseModel):
 
     class Config:
         orm_mode = True
-
 
 class RecentProject(BaseModel):
     id: int
